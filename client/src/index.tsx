@@ -1,6 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+  cache: new InMemoryCache(),
+});
+
 import App from './App';
 
 const app = document.getElementById('app');
@@ -37,7 +44,9 @@ ReactDOM.render(
       // reset the state of your app so the error doesn't happen again
     }}
   >
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </ErrorBoundary>,
   app
 );
