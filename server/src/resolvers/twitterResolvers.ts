@@ -1,4 +1,3 @@
-import Db from '../db';
 import { TwitterResolverContext } from './resolvers';
 import { QueryResolvers } from '../resolvers-types.generated';
 
