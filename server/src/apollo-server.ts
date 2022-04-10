@@ -7,7 +7,7 @@ import * as express from 'express';
 import { Server } from 'http';
 
 import Db from './db';
-import resolvers from './resolvers';
+import { resolvers } from './resolvers';
 import { GRAPHQL_SCHEMA_PATH } from './constants';
 
 const SCHEMA = loadSchemaSync(GRAPHQL_SCHEMA_PATH, {
