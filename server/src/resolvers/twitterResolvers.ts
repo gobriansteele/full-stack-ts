@@ -4,13 +4,7 @@ import { tweetTransform } from '../transforms';
 
 export const twitterResolvers: QueryResolvers<TwitterResolverContext> = {
   currentUser: (_parent, _args, { db }) => {
-    const firstUser = db.getFirstUser();
-    if (!firstUser) {
-      throw new Error(
-        `A user was requested, but there are no users in the database`
-      );
-    }
-    return firstUser;
+    return db.getFirstUser();
   },
   suggestions: (_parent, _args, { db }) => {
     return db.getAllSuggestions();
