@@ -7,7 +7,7 @@ import * as express from 'express';
 import { Server } from 'http';
 
 import Db from './db';
-import { resolvers } from './resolvers/';
+import { resolvers } from './resolvers/index';
 import { GRAPHQL_SCHEMA_PATH } from './constants';
 
 const SCHEMA = loadSchemaSync(GRAPHQL_SCHEMA_PATH, {
@@ -24,7 +24,12 @@ export async function createApolloServer(
       schema: SCHEMA,
       resolvers,
     }),
-    context: () => ({ db }),
+    context: () => ({
+      db,
+      dbTweetCache: {},
+      dbTweetToFavoriteCountMap: {},
+      dbUserCache: {},
+    }),
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
