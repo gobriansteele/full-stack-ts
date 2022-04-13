@@ -3,6 +3,7 @@ import { Resolvers } from '../resolvers-types.generated';
 import Db, { DbTweet, DbUser } from '../db';
 import { userResolvers } from './userResolvers';
 import { tweetResolvers } from './tweetResolvers';
+import { mutationTweetResolvers } from './mutationTweetResolvers';
 
 export interface TwitterResolverContext {
   db: Db;
@@ -20,5 +21,8 @@ export const resolvers: Resolvers<TwitterResolverContext> = {
   },
   Tweet: {
     ...tweetResolvers,
+  },
+  Mutation: {
+    ...mutationTweetResolvers,
   },
 };
