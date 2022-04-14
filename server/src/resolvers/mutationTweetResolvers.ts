@@ -1,6 +1,6 @@
 import { TwitterResolverContext } from '../resolvers';
 import { MutationResolvers } from '../resolvers-types.generated';
-import { tweetTransform } from '../transforms';
+import { tweetTransform, favoriteTransform } from '../transforms';
 
 export const mutationTweetResolvers: MutationResolvers<TwitterResolverContext> =
   {
@@ -14,5 +14,23 @@ export const mutationTweetResolvers: MutationResolvers<TwitterResolverContext> =
       dbTweetMap[dbTweet.id] = dbTweet;
 
       return tweetTransform(dbTweet);
+    },
+    async addFavorite(_parent, { favorite }, { db }) {
+      const { userId, tweetId } = favorite;
+      const response = await db.createFavorite({ userId, tweetId });
+      return {
+        ...favoriteTransform(response),
+        tweet: tweetTransform(db.getTweetById(tweetId)),
+        user: db.getUserById(userId),
+      };
+    },
+    async removeFavorite(_parent, { favorite }, { db }) {
+      const { userId, tweetId } = favorite;
+      const response = await db.deleteFavorite({ userId, tweetId });
+      return {
+        ...favoriteTransform(response),
+        tweet: tweetTransform(db.getTweetById(tweetId)),
+        user: db.getUserById(userId),
+      };
     },
   };

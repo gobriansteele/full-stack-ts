@@ -1,5 +1,5 @@
-import { Tweet } from './resolvers-types.generated';
-import { DbTweet } from './db';
+import { Favorite, Tweet } from './resolvers-types.generated';
+import { DbTweet, DbFavorite } from './db';
 
 export const tweetTransform = (dbTweet: DbTweet): Omit<Tweet, 'author'> => {
   return {
@@ -7,5 +7,15 @@ export const tweetTransform = (dbTweet: DbTweet): Omit<Tweet, 'author'> => {
     body: dbTweet.message,
     createdAt: dbTweet.createdAt,
     updatedAt: dbTweet.updatedAt,
+  };
+};
+
+export const favoriteTransform = (
+  favorite: DbFavorite
+): Omit<Favorite, 'user' | 'tweet'> => {
+  return {
+    createdAt: favorite.createdAt,
+    id: favorite.id,
+    updatedAt: favorite.updatedAt,
   };
 };
