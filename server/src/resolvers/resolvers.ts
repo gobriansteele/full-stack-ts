@@ -4,6 +4,7 @@ import Db, { DbTweet, DbUser } from '../db';
 import { userResolvers } from './userResolvers';
 import { tweetResolvers } from './tweetResolvers';
 import { mutationTweetResolvers } from './mutationTweetResolvers';
+import { trendResolvers } from './trendResolvers';
 
 export interface TwitterResolverContext {
   db: Db;
@@ -25,4 +26,5 @@ export const resolvers: Resolvers<TwitterResolverContext> = {
   Mutation: {
     ...mutationTweetResolvers,
   },
+  Trend: trendResolvers,
 };

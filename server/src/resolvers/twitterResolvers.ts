@@ -1,6 +1,6 @@
 import { TwitterResolverContext } from './resolvers';
 import { QueryResolvers } from '../resolvers-types.generated';
-import { tweetTransform } from '../transforms';
+import { trendTransform, tweetTransform } from '../transforms';
 
 export const twitterResolvers: QueryResolvers<TwitterResolverContext> = {
   currentUser: (_parent, _args, { db }) => {
@@ -25,5 +25,8 @@ export const twitterResolvers: QueryResolvers<TwitterResolverContext> = {
       dbTweetCache[dbTweet.id] = dbTweet;
       return tweetTransform(dbTweet);
     });
+  },
+  trends(_, __, { db }) {
+    return db.getAllTrends().map(trendTransform);
   },
 };
