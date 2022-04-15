@@ -14,17 +14,9 @@ export interface TwitterResolverContext {
 }
 
 export const resolvers: Resolvers<TwitterResolverContext> = {
-  Query: {
-    ...twitterResolvers,
-  },
-  User: {
-    ...userResolvers,
-  },
-  Tweet: {
-    ...tweetResolvers,
-  },
-  Mutation: {
-    ...mutationTweetResolvers,
-  },
+  Query: twitterResolvers,
+  User: userResolvers,
+  Tweet: tweetResolvers,
+  Mutation: mutationTweetResolvers,
   Trend: trendResolvers,
 };
